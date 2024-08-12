@@ -28,7 +28,7 @@ const error = ref(null);
 onMounted(async () => {
   try {
     // API 호출
-    const response = await axios.get('http://localhost:9080/post/v1/show');
+    const response = await axios.get('http://localhost:9080/post/v1/show/rest');
     posts.value = response.data;
     console.log('########### OnMountedBoard 의 데이터 ', response.data);
   } catch (err) {
