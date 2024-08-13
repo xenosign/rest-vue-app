@@ -33,7 +33,7 @@ const fetchPosts = async () => {
   error.value = null;
   try {
     // API 호출
-    const response = await axios.get('http://localhost:9080/post/v1/show/rest');
+    const response = await axios.get('http://localhost:8080/post/v1/show/rest');
     posts.value = response.data;
     console.log('########### OnClickBoard 의 데이터 ', response.data);
   } catch (err) {

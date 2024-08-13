@@ -2,7 +2,7 @@
   <div class="container">
     <div class="post-board">
       <h1>게시판</h1>
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="loading">로딩중...</div>
       <div v-else-if="error" class="error">{{ error }}</div>
       <div v-else>
         <ul class="post-list">
@@ -28,7 +28,7 @@ const error = ref(null);
 onMounted(async () => {
   try {
     // API 호출
-    const response = await axios.get('http://localhost:9080/post/v1/show/rest');
+    const response = await axios.get('http://localhost:8080/post/v1/show/rest');
     posts.value = response.data;
     console.log('########### OnMountedBoard 의 데이터 ', response.data);
   } catch (err) {
