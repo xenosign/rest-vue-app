@@ -24,11 +24,12 @@ import axios from 'axios';
 const posts = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const url = 'http://localhost:8080/post/v1/rest/show';
 
 onMounted(async () => {
   try {
     // API 호출
-    const response = await axios.get('http://localhost:8080/post/v1/show/rest');
+    const response = await axios.get(url);
     posts.value = response.data;
     console.log('########### OnMountedBoard 의 데이터 ', response.data);
   } catch (err) {

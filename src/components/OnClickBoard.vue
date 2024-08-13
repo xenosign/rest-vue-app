@@ -29,11 +29,12 @@ const loading = ref(false);
 const error = ref(null);
 
 const fetchPosts = async () => {
+  const url = 'http://localhost:8080/post/v1/rest/show';
   loading.value = true;
   error.value = null;
   try {
     // API 호출
-    const response = await axios.get('http://localhost:8080/post/v1/show/rest');
+    const response = await axios.get(url);
     posts.value = response.data;
     console.log('########### OnClickBoard 의 데이터 ', response.data);
   } catch (err) {
