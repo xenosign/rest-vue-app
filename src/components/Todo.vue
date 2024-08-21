@@ -84,7 +84,6 @@ async function addTodo() {
   try {
     const response = await axios.post(`${url}/${newTodo.value}`);
     console.log('Todo 추가 :', response.data);
-    todos.value = [...todos.value, response.data];
     newTodo.value = '';
     fetchTodos();
   } catch (err) {
@@ -109,9 +108,6 @@ async function updateTodo(id) {
       `${url}/update/${id}/${editingText.value}`
     );
     console.log('Todo 수정 :', response.data);
-    todos.value = todos.value.map((todo) =>
-      todo.id === id ? response.data : todo
-    );
     cancelEdit();
     fetchTodos();
   } catch (err) {
@@ -124,7 +120,6 @@ async function deleteTodo(id) {
   try {
     await axios.delete(`${url}/${id}`);
     console.log('Todo 삭제 id :', id);
-    todos.value = todos.value.filter((todo) => todo.id !== id);
     fetchTodos();
   } catch (err) {
     error.value = 'Todo 삭제 실패';
@@ -136,9 +131,6 @@ async function toggleDone(todo) {
   try {
     const response = await axios.put(`${url}/${todo.id}`);
     console.log('Todo 완료 수정 :', response.data);
-    todos.value = todos.value.map((t) =>
-      t.id === todo.id ? response.data : t
-    );
     fetchTodos();
   } catch (err) {
     error.value = 'Todo 완료 수정 실패';
