@@ -124,6 +124,8 @@ const fetchWeatherData = async () => {
   error.value = null;
   try {
     const encodedCity = encodeURIComponent(selectedCity.value);
+    // const encodedCity = selectedCity.value;
+    console.log('encodedCity', encodedCity);
     const response = await axios.get(baseUri + encodedCity);
     weatherData.value = response.data;
   } catch (err) {

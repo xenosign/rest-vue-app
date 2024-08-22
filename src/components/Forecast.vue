@@ -7,12 +7,40 @@
         @change="fetchWeatherData"
         class="city-select"
       >
-        <option value="seoul" selected>서울</option>
-        <option value="busan">부산</option>
-        <option value="incheon">인천</option>
-        <option value="daegu">대구</option>
-        <option value="daejeon">대전</option>
-        <option value="gwangju">광주</option>
+        <optgroup label="한국">
+          <option value="seoul" selected>서울</option>
+          <option value="busan">부산</option>
+          <option value="incheon">인천</option>
+          <option value="daegu">대구</option>
+          <option value="daejeon">대전</option>
+          <option value="gwangju">광주</option>
+        </optgroup>
+        <optgroup label="아시아">
+          <option value="tokyo">도쿄</option>
+          <option value="beijing">베이징</option>
+          <option value="bangkok">방콕</option>
+          <option value="singapore">싱가포르</option>
+        </optgroup>
+        <optgroup label="유럽">
+          <option value="london">런던</option>
+          <option value="paris">파리</option>
+          <option value="rome">로마</option>
+          <option value="berlin">베를린</option>
+        </optgroup>
+        <optgroup label="북미">
+          <option value="New York">뉴욕</option>
+          <option value="Los Angeles">로스앤젤레스</option>
+          <option value="chicago">시카고</option>
+          <option value="toronto">토론토</option>
+        </optgroup>
+        <optgroup label="남미">
+          <option value="Sao Paulo">상파울루</option>
+          <option value="Buenos Aires">부에노스아이레스</option>
+        </optgroup>
+        <optgroup label="오세아니아">
+          <option value="sydney">시드니</option>
+          <option value="auckland">오클랜드</option>
+        </optgroup>
       </select>
     </div>
 
@@ -49,7 +77,7 @@ const loading = ref(true);
 const error = ref(null);
 const cityName = ref('');
 const selectedCity = ref('seoul');
-const baseUrl = 'http://localhost:8080/weather/forecast';
+const baseUri = 'http://localhost:8080/weather/forecast/';
 
 const getDayOfWeek = (timestamp) => {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -74,8 +102,8 @@ const fetchWeatherData = async () => {
     loading.value = true;
     error.value = null;
     const encodedCity = encodeURIComponent(selectedCity.value);
-    const url = `${baseUrl}/${encodedCity}`; // Building the correct URL
-    const response = await axios.get(url);
+    console.log('encodedCity', encodedCity);
+    const response = await axios.get(baseUri + encodedCity);
     forecastData.value = response.data;
     cityName.value = response.data.city.name;
   } catch (e) {
