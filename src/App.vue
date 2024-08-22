@@ -4,6 +4,7 @@
     <div class="board-container">
       <Todo v-if="currentComponent === 'todo'" />
       <Weather v-if="currentComponent === 'weather'" />
+      <Forecast v-if="currentComponent === 'forecast'" />
     </div>
   </div>
 </template>
@@ -13,6 +14,7 @@ import { ref } from 'vue';
 import Header from './components/Header.vue';
 import Todo from './components/Todo.vue';
 import Weather from './components/Weather.vue';
+import Forecast from './components/Forecast.vue';
 
 const currentComponent = ref('todo');
 

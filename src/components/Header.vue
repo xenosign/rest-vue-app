@@ -13,6 +13,12 @@
       >
         Weather
       </button>
+      <button
+        @click="$emit('change-component', 'forecast')"
+        :class="{ active: currentComponent === 'forecast' }"
+      >
+        Forecast
+      </button>
     </nav>
   </header>
 </template>
