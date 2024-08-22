@@ -1,4 +1,3 @@
-// App.vue
 <template>
   <div class="app-container">
     <Header @change-component="changeComponent" />
@@ -9,27 +8,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import Header from './components/Header.vue';
 import Todo from './components/Todo.vue';
 import Weather from './components/Weather.vue';
 
-export default {
-  components: {
-    Header,
-    Todo,
-    Weather,
-  },
-  data() {
-    return {
-      currentComponent: 'todo',
-    };
-  },
-  methods: {
-    changeComponent(component) {
-      this.currentComponent = component;
-    },
-  },
+const currentComponent = ref('todo');
+
+const changeComponent = (component) => {
+  currentComponent.value = component;
 };
 </script>
 

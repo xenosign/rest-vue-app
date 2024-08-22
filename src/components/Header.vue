@@ -17,10 +17,13 @@
   </header>
 </template>
 
-<script>
-export default {
-  props: ['currentComponent'],
-};
+<script setup>
+defineProps({
+  currentComponent: {
+    type: String,
+    required: true,
+  },
+});
 </script>
 
 <style scoped>
@@ -42,10 +45,43 @@ button {
   font-size: 1.2rem;
   margin: 0 1rem;
   padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: height 0.3s ease;
+}
+
+button:hover::after,
+button.active::after {
+  height: 100%;
 }
 
 button.active {
   font-weight: bold;
-  border-bottom: 2px solid white;
+}
+
+button.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+}
+
+button span {
+  position: relative;
+  z-index: 1;
 }
 </style>
