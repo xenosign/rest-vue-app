@@ -2,6 +2,7 @@
   <div class="app-container">
     <Header @change-component="changeComponent" />
     <div class="board-container">
+      <Board v-if="currentComponent === 'board'" />
       <Todo v-if="currentComponent === 'todo'" />
       <Weather v-if="currentComponent === 'weather'" />
       <Forecast v-if="currentComponent === 'forecast'" />
@@ -15,8 +16,9 @@ import Header from './components/Header.vue';
 import Todo from './components/Todo.vue';
 import Weather from './components/Weather.vue';
 import Forecast from './components/Forecast.vue';
+import Board from './components/Board.vue';
 
-const currentComponent = ref('todo');
+const currentComponent = ref('board');
 
 const changeComponent = (component) => {
   currentComponent.value = component;

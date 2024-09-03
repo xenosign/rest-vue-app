@@ -2,6 +2,12 @@
   <header>
     <nav>
       <button
+        @click="$emit('change-component', 'board')"
+        :class="{ active: currentComponent === 'board' }"
+      >
+        Board
+      </button>
+      <button
         @click="$emit('change-component', 'todo')"
         :class="{ active: currentComponent === 'todo' }"
       >
