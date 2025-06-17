@@ -9,12 +9,12 @@
           <li v-for="post in posts" :key="post.id" class="post-item">
             <div class="post-header">
               <h3 class="post-title">{{ post.title }}</h3>
-              <span class="post-date">{{ formatDate(post.regDate) }}</span>
+              <!-- <span class="post-date">{{ formatDate(post.regDate) }}</span> -->
             </div>
             <p class="post-content">{{ post.content }}</p>
-            <div class="post-footer">
+            <!-- <div class="post-footer">
               <span class="post-author">작성자: {{ post.author }}</span>
-            </div>
+            </div> -->
           </li>
         </ul>
         <div v-else class="no-posts">게시글이 없습니다.</div>
@@ -31,7 +31,7 @@ const posts = ref([]);
 const loading = ref(false);
 const error = ref(null);
 
-const baseUri = 'http://localhost:8080/api/board/list';
+const baseUri = 'http://localhost:8080/post/v2/list';
 
 onMounted(fetchPosts);
 
