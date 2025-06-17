@@ -15,6 +15,7 @@
             <!-- <div class="post-footer">
               <span class="post-author">작성자: {{ post.author }}</span>
             </div> -->
+            <button v-on:click="deletePost(post.id)">삭제</button>
           </li>
         </ul>
         <div v-else class="no-posts">게시글이 없습니다.</div>
@@ -31,7 +32,7 @@ const posts = ref([]);
 const loading = ref(false);
 const error = ref(null);
 
-const baseUri = 'http://localhost:8080/post/v2/list';
+const baseUri = 'http://localhost:8080/post/v3';
 
 onMounted(fetchPosts);
 
@@ -39,7 +40,7 @@ async function fetchPosts() {
   loading.value = true;
   error.value = null;
   try {
-    const response = await axios.get(baseUri);
+    const response = await axios.get(baseUri + '/list');
     posts.value = response.data;
   } catch (err) {
     error.value = '게시글 목록을 불러오는데 실패했습니다.';
@@ -55,6 +56,20 @@ function formatDate(timestamp) {
     2,
     '0'
   )}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+async function deletePost(id) {
+  try {
+    const response = await axios.post(baseUri + `/delete?id=${id}`);
+
+    if (response.status === 202 || response.status === 204) {
+      fetchPosts();
+    } else {
+      alert('게시글 삭제 실패');
+    }
+  } catch (err) {
+    alert('게시글 삭제 실패');
+  }
 }
 </script>
 
