@@ -5,6 +5,12 @@
       <div v-if="loading" class="loading">로딩 중...</div>
       <div v-else-if="error" class="error">{{ error }}</div>
       <div v-else>
+        <div class="post-form">
+          <h2>게시글 작성</h2>
+          <input v-model="newPost.title" placeholder="제목을 입력하세요" />
+          <input v-model="newPost.content" placeholder="내용을 입력하세요"></input>
+          <button v-on:click="createPost">작성</button>
+        </div>
         <ul class="post-list" v-if="posts.length > 0">
           <li v-for="post in posts" :key="post.id" class="post-item">
             <div class="post-header">
@@ -31,6 +37,7 @@ import axios from 'axios';
 const posts = ref([]);
 const loading = ref(false);
 const error = ref(null);
+const newPost = ref({});
 
 const baseUri = 'http://localhost:8080/post/v3';
 
@@ -50,19 +57,29 @@ async function fetchPosts() {
   }
 }
 
-function formatDate(timestamp) {
-  const date = new Date(timestamp);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-    2,
-    '0'
-  )}-${String(date.getDate()).padStart(2, '0')}`;
+async function createPost() {
+  try {
+    const response = await axios.post(baseUri + '/new', newPost.value);
+
+    console.log(newPost.value);
+    
+
+    if (response.status === 200 || response.status === 204) {
+      alert('게시글 추가 요청 전송');
+    } else {
+      alert('게시글 추가 요청 에러');
+    }
+  } catch (err) {
+    alert('게시글 추가 요청 에러');
+  }
 }
+
 
 async function deletePost(id) {
   try {
     const response = await axios.post(baseUri + `/delete?id=${id}`);
 
-    if (response.status === 202 || response.status === 204) {
+    if (response.status === 200 || response.status === 204) {
       fetchPosts();
     } else {
       alert('게시글 삭제 실패');
@@ -71,6 +88,17 @@ async function deletePost(id) {
     alert('게시글 삭제 실패');
   }
 }
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+
+createPost
 </script>
 
 <style scoped>
