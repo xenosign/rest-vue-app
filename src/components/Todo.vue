@@ -82,7 +82,10 @@ async function fetchTodos() {
 async function addTodo() {
   if (!newTodo.value.trim()) return;
   try {
-    const response = await axios.post(`${url}/${newTodo.value}`);
+    const response = await axios.post(url, {
+      todo: newTodo.value,
+      done: false,
+    });
     console.log('Todo 추가 :', response.data);
     newTodo.value = '';
     fetchTodos();
@@ -129,7 +132,7 @@ async function deleteTodo(id) {
 
 async function toggleDone(todo) {
   try {
-    const response = await axios.put(`${url}/${todo.id}`);
+    const response = await axios.post(`${url}/${todo.id}`);
     console.log('Todo 완료 수정 :', response.data);
     fetchTodos();
   } catch (err) {
